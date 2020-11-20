@@ -1,0 +1,75 @@
+/**
+ * Memory of 8 registers, each 16 bit-wide. Out holds the value
+ * stored at the memory location specified by address. If load==1, then 
+ * the in value is loaded into the memory location specified by address 
+ * (the loaded value will be emitted to out from the next time step onward).
+ */
+CHIP RAM8 {
+    IN in[16], load, address[3];
+    OUT out[16];
+
+    PARTS:
+        /**
+         * Address[3] : it means that the address can
+         *              have a value between 000 and 111
+         *
+         * Load       : it can take value 0 or 1. If load = 1
+         *              then the input value "in" is loaded into
+         *              the memory location specified by the address
+         *
+         * RAMX       : by definition it is a memory consisting of X
+         *            : registers each with 16 bits.
+         *  
+         * NOTE       : starting from RAM64 the previous RAM will be used as "register"
+         *              So RAM64 will use RAM8, RAM512 will use RAM64 and so on...
+         *
+         * Steps for implementing the RAM8 (000-111)
+         * 1) DMux8Way: If load == 1 then the output in address position 
+         *                           will have value 1
+         *              else all outputs will be equal to 0
+         *   E.g: load = 1, address = 000
+         *        {1, 0, 0, 0, 0, 0, 0, 0}
+         *
+         * 2) Register: 8 registers each of which has a "load" (the "load" is taken
+         *              from the DMux outputs) and "in" inputs.
+         *              If load == 1 then the value "in" is stored into the register
+         *              else the register is read
+         *
+         * 3) Mux8Way: Select (via address) which of the 8 registers
+         *             should be returned as output
+         */
+        DMux8Way(
+            in=load,
+            sel=address,
+            a=loadA,
+            b=loadB,
+            c=loadC,
+            d=loadD,
+            e=loadE, 
+            f=loadF, 
+            g=loadG, 
+            h=loadH
+        );
+        
+        Register(in=in, load=loadA, out=registerA);
+        Register(in=in, load=loadB, out=registerB);
+        Register(in=in, load=loadC, out=registerC);
+        Register(in=in, load=loadD, out=registerD);
+        Register(in=in, load=loadE, out=registerE);
+        Register(in=in, load=loadF, out=registerF);
+        Register(in=in, load=loadG, out=registerG);
+        Register(in=in, load=loadH, out=registerH);
+
+        Mux8Way16(
+            a=registerA, 
+            b=registerB, 
+            c=registerC, 
+            d=registerD, 
+            e=registerE, 
+            f=registerF,
+            g=registerG, 
+            h=registerH, 
+            sel=address, 
+            out=out
+        );
+}

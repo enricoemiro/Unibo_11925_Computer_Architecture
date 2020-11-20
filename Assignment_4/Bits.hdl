@@ -1,0 +1,18 @@
+/**
+ * If C-Instruction       out = instruction[0..12]
+ * else if A-Instruction  out = 0000000100000
+ * else                   out = 0000000000000
+ */
+CHIP Bits {
+    IN instruction[16], A, C;
+    OUT out[13];
+    
+    PARTS:
+        // If A-Instruction == 1 out = 0000000100000
+        // else                  out = 0000000000000
+        Or16(a=false, b[5..5]=A, out=outAInstruction);
+
+        // If C-Instruction == 1 out = instruction[0..12]
+        // else                  out = outAInstruction
+        Mux16(a=outAInstruction, b=instruction, sel=C, out[0..12]=out);
+}

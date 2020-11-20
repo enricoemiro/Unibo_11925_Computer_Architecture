@@ -1,0 +1,23 @@
+/**
+ * Exclusive-or gate:
+ * out = not (a == b)
+ */
+
+CHIP Xor {
+    IN a, b;
+    OUT out;
+
+    PARTS:
+        /**
+         * Xor(a, b) = Or(
+         *               And(Not(a), b),
+         *               And(a, Not(b)))
+         */
+        Not(in=a, out=notA);
+        And(a=notA, b=b, out=outNotAB);
+
+        Not(in=b, out=notB);
+        And(a=a, b=notB, out=outAnotB);
+
+        Or(a=outAnotB, b=outNotAB, out=out);
+}

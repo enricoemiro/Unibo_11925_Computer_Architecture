@@ -1,0 +1,22 @@
+/**
+ * if z == 1 then out = 0
+ * else out = in
+ *
+ * Truth table:
+ * | in | z | out |
+ * |  0 | 0 |  0  |
+ * |  0 | 1 |  0  |
+ * |  1 | 0 |  1  |
+ * |  1 | 1 |  0  |
+ *
+ * f(in, z) = And(in, Not(z))
+ */
+ 
+CHIP Z {
+    IN in, z;
+    OUT out;
+
+    PARTS:
+        Not(in=z, out=notZ);
+        And(a=in, b=notZ, out=out);
+}

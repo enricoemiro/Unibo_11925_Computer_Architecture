@@ -1,0 +1,18 @@
+/**
+ * A-Instruction: If instruction[15] == 0
+ * C-Instruction: If instruction[15] == 1 &&
+ *                   instruction[14] == 1 &&
+ *                   instruction[13] == 1
+ */
+CHIP Decode {
+    IN instruction[16];
+    OUT A, C;
+    
+    PARTS:
+        // A-Instruction
+        Xor(a=instruction[15], b=true, out=A);
+
+        // C-Instruction
+        And(a=instruction[15], b=instruction[14], out=instruction1514);
+        And(a=instruction1514, b=instruction[13], out=C);
+}

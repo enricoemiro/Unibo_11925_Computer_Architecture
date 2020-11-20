@@ -1,0 +1,21 @@
+/**
+ * if n == 1 then out = !in
+ * else out =  in
+ */
+
+CHIP N16 {
+    IN in[16], n;
+    OUT out[16];
+
+    PARTS:
+        /**
+         * Multiplexor:
+         * out = a if sel == 0
+         *       b otherwise
+         *
+         * The Multiplexor definition is applied
+         * NB: The order of the inputs is important!
+         */
+        Not16(in=in, out=notIn);
+        Mux16(a=in, b=notIn, sel=n, out=out);
+}

@@ -1,0 +1,30 @@
+/**
+ * 16 bit Z:
+ * for i=0..15: out[i] = Z(in[i], z)
+ */
+
+CHIP Z16 {
+    IN in[16], z;
+    OUT out[16];
+
+    PARTS:
+        /**
+         * Apply the Z logic gate to each bit (0 to 15)
+         */
+        Z(in=in[0], z=z, out=out[0]);
+        Z(in=in[1], z=z, out=out[1]);
+        Z(in=in[2], z=z, out=out[2]);
+        Z(in=in[3], z=z, out=out[3]);
+        Z(in=in[4], z=z, out=out[4]);
+        Z(in=in[5], z=z, out=out[5]);
+        Z(in=in[6], z=z, out=out[6]);
+        Z(in=in[7], z=z, out=out[7]);
+        Z(in=in[8], z=z, out=out[8]);
+        Z(in=in[9], z=z, out=out[9]);
+        Z(in=in[10], z=z, out=out[10]);
+        Z(in=in[11], z=z, out=out[11]);
+        Z(in=in[12], z=z, out=out[12]);
+        Z(in=in[13], z=z, out=out[13]);
+        Z(in=in[14], z=z, out=out[14]);
+        Z(in=in[15], z=z, out=out[15]);
+}

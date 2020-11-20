@@ -1,0 +1,30 @@
+/**
+ * If JLT == 1 || JEQ == 1 || JGT == 1 then out = 1
+ * Else                                     out = 0
+ */
+CHIP JMP {
+    IN in[3], zr, ng;
+    OUT out;
+
+    PARTS:
+        // If j1 == 1 && ng == 1 then JLT = 1
+        // Else                       JLT = 0
+        And(a=in[2], b=ng, out=JLT);
+
+        // If j2 == 1 && zr == 1 then JEQ = 1
+        // Else                       JEQ = 0
+        And(a=in[1], b=zr, out=JEQ);
+
+        // If j3 == 1 &&
+        //    ng == 0 &&
+        //    zr == 0   then JGT = 1
+        // Else              JGT = 0
+        Not(in=ng, out=notNG);
+        Not(in=zr, out=notZR);
+        And(a=in[0], b=notNG, out=outIn0NotNG);
+        And(a=outIn0NotNG, b=notZR, out=JGT);
+
+        // JMP
+        Or(a=JLT, b=JEQ, out=outJLTOrJEQ);
+        Or(a=outJLTOrJEQ, b=JGT, out=out);
+}
