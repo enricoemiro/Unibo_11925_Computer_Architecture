@@ -5,6 +5,7 @@
 #include <stdlib.h>
 #include <string.h>
 
+#define DEBUG 0
 #define EXIT_IF_TRUE(expression, msg) \
   {                                   \
     if (expression) {                 \

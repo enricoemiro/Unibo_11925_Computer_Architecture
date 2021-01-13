@@ -16,7 +16,7 @@ char *set_filename(char *path) {
 
 void write_init(FILE *fout) {
   fprintf(fout,
-#ifdef DEBUG
+#if DEBUG == 1
           "// bootstrap\n"
 #endif
           "@256\n"
@@ -26,7 +26,7 @@ void write_init(FILE *fout) {
 }
 
 void write_arithmetic(FILE *fout, char *command) {
-#ifdef DEBUG
+#if DEBUG == 1
   fprintf(fout, "// %s\n", command);
 #endif
 
@@ -92,7 +92,7 @@ void write_arithmetic(FILE *fout, char *command) {
 }
 
 void write_push(FILE *fout, char *segment, char *index) {
-#ifdef DEBUG
+#if DEBUG == 1
   fprintf(fout, "// push %s %s\n", segment, index);
 #endif
 
@@ -138,7 +138,7 @@ void write_push(FILE *fout, char *segment, char *index) {
 }
 
 void write_pop(FILE *fout, char *segment, char *index) {
-#ifdef DEBUG
+#if DEBUG == 1
   fprintf(fout, "// pop %s %s\n", segment, index);
 #endif
 
@@ -173,7 +173,7 @@ void write_pop(FILE *fout, char *segment, char *index) {
 }
 
 void write_label(FILE *fout, char *label_name) {
-#ifdef DEBUG
+#if DEBUG == 1
   fprintf(fout, "// label %s\n", label_name);
 #endif
 
@@ -183,7 +183,7 @@ void write_label(FILE *fout, char *label_name) {
 }
 
 void write_goto(FILE *fout, char *label_name) {
-#ifdef DEBUG
+#if DEBUG == 1
   fprintf(fout, "// goto %s\n", label_name);
 #endif
 
@@ -194,7 +194,7 @@ void write_goto(FILE *fout, char *label_name) {
 }
 
 void write_if_goto(FILE *fout, char *label_name) {
-#ifdef DEBUG
+#if DEBUG == 1
   fprintf(fout, "// if-goto %s\n", label_name);
 #endif
 
@@ -208,7 +208,7 @@ void write_if_goto(FILE *fout, char *label_name) {
 }
 
 void write_call(FILE *fout, char *function_name, char *num_args) {
-#ifdef DEBUG
+#if DEBUG == 1
   fprintf(fout, "// call %s %s\n", function_name, num_args);
 #endif
 
@@ -265,7 +265,7 @@ void write_call(FILE *fout, char *function_name, char *num_args) {
 }
 
 void write_function(FILE *fout, char *function_name, char *num_args) {
-#ifdef DEBUG
+#if DEBUG == 1
   fprintf(fout, "// function %s %s\n", function_name, num_args);
 #endif
 
@@ -282,7 +282,7 @@ void write_function(FILE *fout, char *function_name, char *num_args) {
 
 void write_return(FILE *fout) {
   fprintf(fout,
-#ifdef DEBUG
+#if DEBUG == 1
           "// return\n"
 #endif
           // FRAME = LCL
